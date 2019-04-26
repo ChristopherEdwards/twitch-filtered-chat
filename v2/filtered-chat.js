@@ -985,10 +985,12 @@ function client_main(layout) {
 
   /* Opening one of the module menus */
   $(".menu").click(function() {
-    let $settings = $(this).parent().children(".settings");
+    let self = this;
+    let $children = $(this).parent().children();
+    let $settings = $(this).parent().children("div.settings");
     let $lbl = $(this).parent().children('label.name');
     let $tb = $(this).parent().children('input.name');
-    if ($settings.is(":visible")) {
+    if ($settings.css('display') !== 'none') {
       /* Update config on close */
       update_module_config();
       $tb.hide();
