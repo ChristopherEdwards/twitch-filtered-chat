@@ -755,7 +755,7 @@ function show_context_window(client, cw, line) {
       let dur = $(this).attr('data-duration');
       client.Timeout(ch, u, dur);
       Util.Log('Timed out user', u, 'from', ch, 'for', dur);
-      $(cw).fadeOut();
+      $(cw).hide();
     });
     $tl.append($ta);
   }
@@ -880,8 +880,8 @@ function client_main(layout) {
 
   /* Clicking the settings button */
   $("#settings_button").click(function() {
-    if ($("#settings").is(':visible')) {
-      $('#settings').fadeOut();
+    if ($("#settings").css('display') !== 'none') {
+      $('#settings').hide();
     } else {
       let config = get_config_object();
       $("#txtChannel").val(config.Channels.join(","));
@@ -895,7 +895,7 @@ function client_main(layout) {
         $("#txtPassDummy").show();
       }
       $("#selDebug").val(`${config.Debug}`);
-      $('#settings').fadeIn();
+      $('#settings').show();
     }
   });
 
@@ -985,10 +985,12 @@ function client_main(layout) {
 
   /* Opening one of the module menus */
   $(".menu").click(function() {
-    let $settings = $(this).parent().children(".settings");
-    let $lbl = $(this).parent().children('label.name');
-    let $tb = $(this).parent().children('input.name');
-    if ($settings.is(":visible")) {
+    // let self = this;
+    // let $children = $(this).parent().children();
+    let $settings = $(this).parent().children("","div.settings");
+    let $lbl = $(this).parent().children('','label.name');
+    let $tb = $(this).parent().children('','input.name');
+    if ($settings.css('display') !== 'none') {
       /* Update config on close */
       update_module_config();
       $tb.hide();
@@ -1063,7 +1065,7 @@ function client_main(layout) {
       }
     } else {
       /* Clicked somewhere else: close context window */
-      $cw.fadeOut();
+      $cw.hide();
     }
   });
 
